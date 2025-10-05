@@ -1,4 +1,4 @@
-%% Main script for the kinematics project
+%% Main script for the kinematics of the TM5-700 robotic arm
 
 clear; clc; close all;
 
@@ -7,7 +7,7 @@ clear; clc; close all;
 disp('--- Forward Kinematics ---');
 
 % Define joint angles (in degrees)
-joint_angles = [30, 45, 60, 90, 45, 30]; % Exemple
+joint_angles = [0, -50, 0, 0, 0, 0]; % Exemple
 
 
 % Compute forward kinematics
@@ -19,9 +19,12 @@ fprintf('End-Effector Orientation (ZYX Euler angles): (%.2f°, %.2f°, %.2f°)\n
 
 %% Part 2: Inverse Kinematics
 disp('--- Inverse Kinematics ---');
+
 % Define desired end-effector position and orientation
-desired_position = [0.5, 0.2, 0.3]; %
+desired_position = [0.5, 0.2, 0.3]; % (x, y, z) in meters
 desired_orientation = [30, 45, 60]; % (alpha, beta, gamma) in degrees
+
+
 % Compute inverse kinematics
 list_thetas = inverse(desired_position(1), desired_position(2), desired_position(3), ...
                       desired_orientation(1), desired_orientation(2), desired_orientation(3));
@@ -34,6 +37,13 @@ fprintf('Computed Joint Angles: (%.2f°, %.2f°, %.2f°, %.2f°, %.2f°, %.2f°)
 %% Part 3: Workspace Visualization
 
 disp('--- Workspace Visualization ---');
-figure;
-drawWorkspace();
+% drawWorkspace();
+% hold off;
 disp('Workspace visualization complete.');
+
+
+%% Part 4 : Drow Robot on the workspace
+disp('--- Draw Robot on the workspace ---');
+drawRobot(joint_angles(1), joint_angles(2), joint_angles(3), ...
+          joint_angles(4), joint_angles(5), joint_angles(6));
+disp('Robot drawing complete.');
