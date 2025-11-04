@@ -1,49 +1,56 @@
 %% Main script for the kinematics of the TM5-700 robotic arm
-
-clear; clc; close all;
-
-
-%% Part 1: Forward Kinematics
-disp('--- Forward Kinematics ---');
-
-% Define joint angles (in degrees)
-joint_angles = [0, -50, 0, 0, 0, 0]; % Exemple
+clear; close all; clc;
 
 
-% Compute forward kinematics
-[x, y, z, alpha, beta, gamma] = forward(joint_angles(1), joint_angles(2), joint_angles(3), ...
-                                       joint_angles(4), joint_angles(5), joint_angles(6));
-% Display results
-fprintf('End-Effector Position: (%.4f, %.4f, %.4f)\n', x, y, z);
-fprintf('End-Effector Orientation (ZYX Euler angles): (%.2f°, %.2f°, %.2f°)\n', alpha, beta, gamma);
+disp('Select an option:');
+disp('1. Forward Kinematics');
+disp('2. Inverse Kinematics');
+disp('3. Visualize Robot Workspace');
+choice = input('Enter your choice (1/2/3): ');
 
-%% Part 2: Inverse Kinematics
-disp('--- Inverse Kinematics ---');
+switch choice
+        case 1
+                disp('You selected forward kinematics.');
+                joint_angles = zeros(1,6);
+                for i = 1:6
+                        prompt = sprintf('Enter joint angle t%d (in degrees): ', i);
+                        joint_angles(i) = input(prompt);
+                end
 
-% Define desired end-effector position and orientation
-desired_position = [0.5, 0.2, 0.3]; % (x, y, z) in meters
-desired_orientation = [30, 45, 60]; % (alpha, beta, gamma) in degrees
+                % Compute forward kinematics
+                [x, y, z, alpha, beta, gamma] = forward(joint_angles(1), joint_angles(2), joint_angles(3), ...
+                                                       joint_angles(4), joint_angles(5), joint_angles(6), dh_parameters());
+
+                fprintf('End-Effector Position: (%.4f, %.4f, %.4f)\n', x, y, z);
+                fprintf('End-Effector Orientation (ZYX Euler angles): (%.2f°, %.2f°, %.2f°)\n', alpha, beta, gamma);
+
+        case 2
+                disp('You selected inverse kinematics.');
+
+                x = input('Enter desired end-effector position x (in meters): ');
+                y = input('Enter desired end-effector position y (in meters): ');
+                z = input('Enter desired end-effector position z (in meters): ');
+                alpha = input('Enter desired end-effector orientation alpha (in degrees): ');
+                beta = input('Enter desired end-effector orientation beta (in degrees): ');
+                gamma = input('Enter desired end-effector orientation gamma (in degrees): ');
+
+                % Compute inverse kinematics
+                list_thetas = inverse(x, y, z, alpha, beta, gamma);
+                fprintf('Computed Joint Angles: (%.2f°, %.2f°, %.2f°, %.2f°, %.2f°, %.2f°)\n', ...
+                        list_thetas(1), list_thetas(2), list_thetas(3), list_thetas(4), list_thetas(5), list_thetas(6));
 
 
-% Compute inverse kinematics
-list_thetas = inverse(desired_position(1), desired_position(2), desired_position(3), ...
-                      desired_orientation(1), desired_orientation(2), desired_orientation(3));
+        case 3
+                disp('You selected robot workspace visualization.');
+                joint_angles = [0,30,150,0,0,0];
+                for i = 1:6
+                        prompt = sprintf('Enter joint angle t%d (in degrees): ', i);
+                        joint_angles(i) = input(prompt);
+                end
+                drawRobot(joint_angles(1), joint_angles(2), joint_angles(3), ...
+                          joint_angles(4), joint_angles(5), joint_angles(6), dh_parameters());
+                hold off;
 
-
-% Display results
-fprintf('Computed Joint Angles: (%.2f°, %.2f°, %.2f°, %.2f°, %.2f°, %.2f°)\n', ...
-        list_thetas(1), list_thetas(2), list_thetas(3), list_thetas(4), list_thetas(5), list_thetas(6));
-
-%% Part 3: Workspace Visualization
-
-disp('--- Workspace Visualization ---');
-% drawWorkspace();
-% hold off;
-disp('Workspace visualization complete.');
-
-
-%% Part 4 : Drow Robot on the workspace
-disp('--- Draw Robot on the workspace ---');
-drawRobot(joint_angles(1), joint_angles(2), joint_angles(3), ...
-          joint_angles(4), joint_angles(5), joint_angles(6));
-disp('Robot drawing complete.');
+        otherwise
+                disp('Invalid selection.');
+end

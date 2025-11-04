@@ -1,6 +1,6 @@
 function [T] = mdh(a,alpha,d,theta)
 % Modified Denavit-Hartenberg transformation matrix
-% Input: a, alpha, d, theta (in radians)
+% Input: a, alpha, d (in radians), theta (in radians)
 % Output: 4x4 transformation matrix T
     T = [cos(theta), -sin(theta), 0, a;
          sin(theta)*cos(alpha), cos(theta)*cos(alpha), -sin(alpha), -sin(alpha)*d;

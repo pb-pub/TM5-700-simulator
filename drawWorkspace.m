@@ -1,10 +1,16 @@
-function [] = drawWorkspace()
+function [] = drawWorkspace(dh_params,ax)
 % Draw the TM5-700 robotic arm's workspace
-% Input: None
+% Input: dh_params (struct)
 % Output: None (the function creates a 3D plot)
 
+if nargin < 2
+    figure; ax = gca;
+end
 
-N_samples = 1e5; % nombre de points réaliste
+axes(ax);    
+hold(ax, 'on');
+
+N_samples = 1e4; % nombre de points réaliste
 X = zeros(N_samples,1);
 Y = zeros(N_samples,1);
 Z = zeros(N_samples,1);
@@ -18,7 +24,7 @@ for i = 1:N_samples
     t5 = randi([-180, 180]);
     t6 = randi([-270, 270]);
 
-    [x,y,z,~,~,~] = forward(t1,t2,t3,t4,t5,t6);
+    [x,y,z,~,~,~] = forward(t1,t2,t3,t4,t5,t6, dh_params);
     X(i) = x;
     Y(i) = y;
     Z(i) = z;
@@ -31,18 +37,20 @@ end
 disp('Workspace points calculation complete.');
 
 % Plot the workspace
-figure();
-shp = alphaShape(X,Y,Z,10);  
-plot(shp, 'FaceColor','cyan','FaceAlpha',0.2,'EdgeColor','none');
-hold on;
-scatter3(X,Y,Z,3,'r','filled', 'MarkerFaceAlpha', 0.3);
+shp = alphaShape(X,Y,Z,10);
+[F,V] = boundaryFacets(shp);
+patch(ax, 'Faces', F, 'Vertices', V, ...
+    'FaceColor','cyan', 'FaceAlpha',0.2, 'EdgeColor','none');
 
-xlabel('X (m)');
-ylabel('Y (m)');
-zlabel('Z (m)');
-title('TM5-700 Robotic Arm Workspace');
-axis equal;
-grid on;
+scatter3(ax, X,Y,Z, 3,'r','filled', 'MarkerFaceAlpha', 0.1);
+
+xlabel(ax,'X (m)');
+ylabel(ax,'Y (m)');
+zlabel(ax,'Z (m)');
+title(ax,'TM5-700 Robotic Arm Workspace');
+axis(ax,'equal');
+grid(ax,'on');
+
 
 
 end

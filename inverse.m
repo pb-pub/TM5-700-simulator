@@ -5,6 +5,6 @@ function [list_thetas] = inverse(x,y,z,alpha,beta,gamma)
 
 % fake inverse atm
 
-    list_thetas = [0, 0, 0, 0, 0, 0]; % Placeholder values
+    list_thetas = [[0,30,140,0,0,0]; zeros(1, 6)]; % Placeholder matrix
 
 end

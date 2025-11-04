@@ -1,6 +1,6 @@
-function [x,y,z,alpha,beta,gamma] = forward(t1,t2,t3,t4,t5,t6)
+function [x,y,z,alpha,beta,gamma] = forward(t1,t2,t3,t4,t5,t6, dh_params)
 % Forward kinematics function for a TM5-700 robotic arm
-% Input: Joint angles t1 to t6 in degrees
+% Input: Joint angles t1 to t6 in degrees and dh_params (struct)
 % Output: End-effector position (x, y, z) and orientation (alpha, beta, gamma) in degrees
 
     % Convert degrees to radians
@@ -11,14 +11,15 @@ function [x,y,z,alpha,beta,gamma] = forward(t1,t2,t3,t4,t5,t6)
     t5 = deg2rad(t5);
     t6 = deg2rad(t6);
 
-    % DH Parameters
-    alpha0 = 0; a0 = 0; d1 = 0.1451;
-    alpha1 = -pi/2; a1 = 0.329; d2 = 0;
-    alpha2 = 0; a2 = 0.3115; d3 = 0;
-    alpha3 = -pi/2; a3 = 0; d4 = -0.1222;
-    alpha4 = pi/2; a4 = 0; d5 = 0.106;
-    alpha5 = -pi/2; a5 = 0; d6 = 0.11315;
-
+    % Extract DH parameters
+    % I wrote +1 here to show that the indexing starts from 1 in MATLAB
+    % while the DH parameters alpha and a are usually indexed from 0 
+    a0 = dh_params.a(0+1); alpha0 = dh_params.alpha(0+1); d1 = dh_params.d(1);
+    a1 = dh_params.a(1+1); alpha1 = dh_params.alpha(1+1); d2 = dh_params.d(2);
+    a2 = dh_params.a(2+1); alpha2 = dh_params.alpha(2+1); d3 = dh_params.d(3);
+    a3 = dh_params.a(3+1); alpha3 = dh_params.alpha(3+1); d4 = dh_params.d(4);
+    a4 = dh_params.a(4+1); alpha4 = dh_params.alpha(4+1); d5 = dh_params.d(5);
+    a5 = dh_params.a(5+1); alpha5 = dh_params.alpha(5+1); d6 = dh_params.d(6);
 
     % Transformation Matrix
     T01 = mdh(a0, alpha0, d1, t1);
