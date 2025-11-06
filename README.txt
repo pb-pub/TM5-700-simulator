@@ -25,6 +25,7 @@ Files:
 - "robotSimulation.mlapp": MATLAB apps for interacting with the simulator.
 - "main.m": Main script for running the simulation.
 - "forward.m", "inverse.m": Functions for forward and inverse kinematics.
+- "mdh.m", "dh_parameters.m", "areAnglesRight.m": Utilities for parameters or modified DH matrixs.
 - "drawRobot.m", "drawWorkspace.m": Visualization utilities.
 
 Requirements:

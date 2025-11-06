@@ -26,12 +26,12 @@ if discriminant < 0
     warning('No valid solution');
     return;
 elseif discriminant == 0
-    % Here there is 2 solutions for theta_5 so we add 2 nodes to the tree
+    % Here there is 2 solutions for theta_5 so we add 2 to the list
     list_thetas = [list_thetas; [inf, inf, inf, inf, rad2deg(acos(-B / (2 * A))), inf]];
     list_thetas = [list_thetas; [inf, inf, inf, inf, rad2deg(-acos(-B / (2 * A))), inf]];
 
 else
-    % Here there is 4 solutions for theta_5 so we add 4 nodes to the tree
+    % Here there is 4 solutions for theta_5 so we add 4 to the list
     sqrt_disc = sqrt(discriminant);
     list_thetas = [list_thetas; [inf, inf, inf, inf, rad2deg(acos((-B + sqrt_disc) / (2 * A))), inf]];
     list_thetas = [list_thetas; [inf, inf, inf, inf, rad2deg(acos((-B - sqrt_disc) / (2 * A))), inf]];
@@ -39,6 +39,9 @@ else
     list_thetas = [list_thetas; [inf, inf, inf, inf, rad2deg(-acos((-B - sqrt_disc) / (2 * A))), inf]];
     
 end
+
+
+
 % computing of thetas 1
 temp_list_thetas = [];
 
@@ -173,11 +176,15 @@ for i = 1:size(list_thetas, 1)
     end
     if ~isnan(best_th4(1))
         list_theta1(4) = best_th4(1);
-        temp_list_thetas = [temp_list_thetas; list_theta1];
+        if(areAnglesRight(list_theta1, dh_params))
+            temp_list_thetas = [temp_list_thetas; list_theta1];
+        end
     end
     if ~isnan(best_th4(2))
         list_theta2(4) = best_th4(2);
-        temp_list_thetas = [temp_list_thetas; list_theta2];
+        if(areAnglesRight(list_theta2, dh_params))
+            temp_list_thetas = [temp_list_thetas; list_theta2];
+        end
     end
 end
 list_thetas = temp_list_thetas;

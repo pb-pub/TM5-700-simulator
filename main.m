@@ -1,6 +1,7 @@
 %% Main script for the kinematics of the TM5-700 robotic arm
 clear; close all; clc;
 
+%% Start of the main program
 
 disp('Select an option:');
 disp('1. Forward Kinematics');
