@@ -4,6 +4,7 @@ function [] = drawRobot(th1,th2,th3,th4,th5,th6, dh_params, ax)
 % Output: None (the function creates a 3D plot)
 
 if nargin < 8
+    figure;
     ax = gca;
 end
 

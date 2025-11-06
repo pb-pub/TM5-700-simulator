@@ -3,6 +3,7 @@ function [x,y,z,alpha,beta,gamma] = forward(t1,t2,t3,t4,t5,t6, dh_params)
 % Input: Joint angles t1 to t6 in degrees and dh_params (struct)
 % Output: End-effector position (x, y, z) and orientation (alpha, beta, gamma) in degrees
 
+
     % Convert degrees to radians
     t1 = deg2rad(t1);
     t2 = deg2rad(t2);

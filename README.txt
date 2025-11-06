@@ -10,8 +10,8 @@ Running the App:
 or 
 1. Open MATLAB.
 2. Navigate to the folder containing this repository.
-3. Double-click on "robotSimulation.mlapp" or "app.mlapp" to launch the MATLAB App Designer interface.
-4. Use the app interface to interact with the simulator.
+3. Run the "robotSimulation.m"lapp script by typing the following command in the MATLAB Command Window:
+   robotSimulation
 
 
 Running the Main Script:
