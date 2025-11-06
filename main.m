@@ -21,31 +21,25 @@ switch choice
                 [x, y, z, alpha, beta, gamma] = forward(joint_angles(1), joint_angles(2), joint_angles(3), ...
                                                        joint_angles(4), joint_angles(5), joint_angles(6), dh_parameters());
 
-                fprintf('End-Effector Position: (%.4f, %.4f, %.4f)\n', x, y, z);
-                fprintf('End-Effector Orientation (ZYX Euler angles): (%.2f°, %.2f°, %.2f°)\n', alpha, beta, gamma);
+                fprintf('End-Effector Position: (%f, %f, %f)\n', x, y, z);
+                fprintf('End-Effector Orientation (ZYX Euler angles): (%f°, %f°, %f°)\n', alpha, beta, gamma);
 
         case 2
                 disp('You selected inverse kinematics.');
 
-                % x = input('Enter desired end-effector position x (in meters): ');
-                % y = input('Enter desired end-effector position y (in meters): ');
-                % z = input('Enter desired end-effector position z (in meters): ');
-                % alpha = input('Enter desired end-effector orientation alpha (in degrees): ');
-                % beta = input('Enter desired end-effector orientation beta (in degrees): ');
-                % gamma = input('Enter desired end-effector orientation gamma (in degrees): ');
-                x = 0.3891;
-                y = 0.1260;
-                z = 0.7077;
-                alpha = -104.64;
-                beta = 8.42;
-                gamma = -120.36;
+                x = input('Enter desired end-effector position x (in meters): ');
+                y = input('Enter desired end-effector position y (in meters): ');
+                z = input('Enter desired end-effector position z (in meters): ');
+                alpha = input('Enter desired end-effector orientation alpha (in degrees): ');
+                beta = input('Enter desired end-effector orientation beta (in degrees): ');
+                gamma = input('Enter desired end-effector orientation gamma (in degrees): ');
 
                 % Compute inverse kinematics
                 [list_thetas, success] = inverse(x, y, z, alpha, beta, gamma, dh_parameters());
 
                 switch success
                     case 1
-                        fprintf('Inverse kinematics solutions found for the given target [%.4f, %.4f, %.4f, %.4f, %.4f, %.4f]:\n', x, y, z, alpha, beta, gamma);
+                        fprintf('Inverse kinematics solutions found for the given target [%f, %f, %f, %f, %f, %f]:\n', x, y, z, alpha, beta, gamma);
                         for i = 1:size(list_thetas, 1)
                             [x, y, z, alpha, beta, gamma] = forward(list_thetas(i,1), list_thetas(i,2), list_thetas(i,3), ...
                                 list_thetas(i,4), list_thetas(i,5), list_thetas(i,6), dh_parameters());

@@ -38,14 +38,9 @@ function [x,y,z,alpha,beta,gamma] = forward(t1,t2,t3,t4,t5,t6, dh_params)
     y = T(2,4);
     z = T(3,4);
     % Extract orientation (ZYX Euler angles)
-    beta = atan2(-T(3,1), sqrt(T(1,1)^2 + T(2,1)^2));
-    alpha = atan2(T(2,1), T(1,1));
-    gamma = atan2(T(3,2), T(3,3));
+    beta = atan2d(-T(3,1), sqrt(T(1,1)^2 + T(2,1)^2));
+    alpha = atan2d(T(2,1), T(1,1));
+    gamma = atan2d(T(3,2), T(3,3));
 
-
-    % Convert radians to degrees
-    alpha = rad2deg(alpha);
-    beta = rad2deg(beta);
-    gamma = rad2deg(gamma);
 
 end
