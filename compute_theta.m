@@ -46,5 +46,4 @@ else
     theta = thC;
 
 end 
-size(theta)
 end

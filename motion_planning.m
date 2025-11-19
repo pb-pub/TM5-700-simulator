@@ -48,9 +48,7 @@ function thetas =  motion_planning()
         thetas(idx, : ) = compute_theta(times(idx), pat.tacc, pat.tdab, pat.tdbc, combination(1,:), combination(2,:), combination(3,:), pat.ts);
 
     end 
-    
-    disp('Computed Joint Angles over Time:');
-    disp(thetas);
+    disp('Finished generating Joint Angle Trajectories:');
 
     figure;
     plot(times, thetas(:,1), 'r', ...
