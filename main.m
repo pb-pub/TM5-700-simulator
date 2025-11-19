@@ -7,7 +7,8 @@ disp('Select an option:');
 disp('1. Forward Kinematics');
 disp('2. Inverse Kinematics');
 disp('3. Visualize Robot Workspace');
-choice = input('Enter your choice (1/2/3): ');
+disp('4. Motion Planning');
+choice = input('Enter your choice (1/2/3/4): ');
 
 switch choice
         case 1
@@ -62,6 +63,14 @@ switch choice
                 drawRobot(joint_angles(1), joint_angles(2), joint_angles(3), ...
                           joint_angles(4), joint_angles(5), joint_angles(6), dh_parameters());
                 hold off;
+
+
+        case 4
+                disp('You selected motion planning.');
+
+                thetas = motion_planning();
+                show_motion(thetas, dh_parameters());
+                % make_gif(thetas, dh_parameters(), 'robot_motion.gif');  
 
         otherwise
                 disp('Invalid selection.');

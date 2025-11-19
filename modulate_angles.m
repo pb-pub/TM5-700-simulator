@@ -15,9 +15,8 @@ for i = 1:size(thetas, 1)
     modulated_set = current_thetas; % Start with the original set
 
     for j = 1:length(current_thetas)
-        joint_min = dh_parameters.joint_limits(j, 1);
-        joint_max = dh_parameters.joint_limits(j, 2);
-        joint_range = joint_max - joint_min;
+        joint_min = dh_parameters.th_limits(j, 1);
+        joint_max = dh_parameters.th_limits(j, 2);
 
         % Generate additional angles by adding/subtracting multiples of 360 degrees
         k = 1;
