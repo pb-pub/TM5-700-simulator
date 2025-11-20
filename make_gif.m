@@ -18,6 +18,8 @@ ylim(ax, [-0.8 0.8]); % Set Y limits based on expected robot workspace
 zlim(ax, [-0.8 0.8]); % Set Z limits based on expected robot workspace
 drawnow;
 
+pat = points_and_times();
+
 % Draw workspace once
 drawWorkspace(dh_parameters, ax);
 hold(ax, 'on');
@@ -92,7 +94,10 @@ for step = 1:num_steps
     if step > 1
         delete(path_plot);
     end
-    path_plot = plot3(ax, end_effector_path(1:step,1), end_effector_path(1:step,2), end_effector_path(1:step,3), 'r-', 'LineWidth', 2);
+    path_plot = plot3(ax, end_effector_path(1:step,1), end_effector_path(1:step,2), end_effector_path(1:step,3), 'r-', 'LineWidth', 2, "DisplayName", "End Effector Path");
+    plot3(ax, pat.A(1,4), pat.A(2,4), pat.A(3,4), 'go', 'MarkerSize', 8, 'DisplayName', 'Point A');
+    plot3(ax, pat.B(1,4), pat.B(2,4), pat.B(3,4), 'bo', 'MarkerSize', 8, 'DisplayName', 'Point B');
+    plot3(ax, pat.C(1,4), pat.C(2,4), pat.C(3,4), 'mo', 'MarkerSize', 8, 'DisplayName', 'Point C');
     
     xlabel('X (m)');
     ylabel('Y (m)');

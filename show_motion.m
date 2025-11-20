@@ -7,6 +7,7 @@ function show_motion(thetas, dh_parameters, ax)
 
 
 if (nargin < 3)
+    figure;
     ax = gca;
 end
 
@@ -25,7 +26,13 @@ drawRobot(thetas(1,1), thetas(1,2), thetas(1,3), ...
 
 % Ensure we're plotting on the provided axes
 hold(ax, 'on');
-plot3(ax, end_effector_path(:,1), end_effector_path(:,2), end_effector_path(:,3), 'r-', 'LineWidth', 2);
+%plot the 3 points 
+pat = points_and_times();
+plot3(ax, pat.A(1,4), pat.A(2,4), pat.A(3,4), 'go', 'MarkerSize', 8, 'DisplayName', 'Point A');
+plot3(ax, pat.B(1,4), pat.B(2,4), pat.B(3,4), 'bo', 'MarkerSize', 8, 'DisplayName', 'Point B');
+plot3(ax, pat.C(1,4), pat.C(2,4), pat.C(3,4), 'mo', 'MarkerSize', 8, 'DisplayName', 'Point C');
+
+plot3(ax, end_effector_path(:,1), end_effector_path(:,2), end_effector_path(:,3), 'r-', 'LineWidth', 2, 'DisplayName', 'End Effector Path');
 xlabel(ax, 'X (m)');
 ylabel(ax, 'Y (m)');
 zlabel(ax, 'Z (m)');

@@ -22,6 +22,8 @@ for step = 1:num_steps
     end_effector_path(step,:) = [x,y,z];
 end
 
+pat = points_and_times();
+
 % Setup axes limits from end-effector path (with margin)
 margin = 0.1; % meters
 xmin = min(end_effector_path(:,1)) - margin; xmax = max(end_effector_path(:,1)) + margin;
@@ -101,7 +103,11 @@ for step = 1:num_steps
     robot_plots(13) = plot3(ax, x6, y6, z6, 'o', 'MarkerSize', 8, 'MarkerFaceColor', jointColors{7}, 'MarkerEdgeColor', jointColors{7});
 
     % Plot end effector path
-    path_plot = plot3(ax, end_effector_path(1:step,1), end_effector_path(1:step,2), end_effector_path(1:step,3), 'r-', 'LineWidth', 2);
+    path_plot = plot3(ax, end_effector_path(1:step,1), end_effector_path(1:step,2), end_effector_path(1:step,3), 'r-', 'LineWidth', 2, 'DisplayName', 'End Effector Path');
+    
+    plot3(ax, pat.A(1,4), pat.A(2,4), pat.A(3,4), 'go', 'MarkerSize', 8, 'DisplayName', 'Point A');
+    plot3(ax, pat.B(1,4), pat.B(2,4), pat.B(3,4), 'bo', 'MarkerSize', 8, 'DisplayName', 'Point B');
+    plot3(ax, pat.C(1,4), pat.C(2,4), pat.C(3,4), 'mo', 'MarkerSize', 8, 'DisplayName', 'Point C');
 
     xlabel(ax, 'X (m)');
     ylabel(ax, 'Y (m)');
